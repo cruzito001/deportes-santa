@@ -24,6 +24,32 @@ export default function HeroCarousel() {
 
   return (
     <div className={styles.carousel}>
+      <div className={styles.options}>
+        {slides.map((slide, index) => (
+          <div
+            key={slide.sport}
+            className={`${styles.option} ${
+              index === activeSlide ? styles.active : ""
+            }`}
+            style={
+              {
+                backgroundColor:
+                  index === activeSlide ? slide.backgroundColor : "transparent",
+                "--hover-color": slide.backgroundColor,
+              } as React.CSSProperties
+            }
+            onClick={() => setActiveSlide(index)}
+          >
+            <img
+              src={slide.icon}
+              alt={`Icono de ${slide.sport}`}
+              width={40}
+              height={40}
+            />
+            {index === activeSlide && <span>{slide.sport}</span>}
+          </div>
+        ))}
+      </div>
       <div
         className={styles.mainSlide}
         style={{ backgroundColor: slides[activeSlide].backgroundColor }}
@@ -44,7 +70,7 @@ export default function HeroCarousel() {
               Santa Catarina
             </h2>
             <p>
-              Entérate de todas las sedes, horarios y clasificaciónes de las
+              Entérate de todas las sedes, horarios y clasificaciones de las
               diferentes ligas de todo Santa Catarina.
             </p>
             <div className={styles.buttons}>
@@ -54,31 +80,6 @@ export default function HeroCarousel() {
             </div>
           </div>
         </div>
-      </div>
-      <div className={styles.thumbnails}>
-        {slides.map((slide, index) => {
-          if (index === activeSlide) return null;
-          return (
-            <div
-              key={slide.sport}
-              className={styles.thumbnail}
-              style={
-                {
-                  backgroundColor: "#D3D3D3",
-                  "--hover-color": slide.backgroundColor,
-                } as React.CSSProperties
-              }
-              onClick={() => setActiveSlide(index)}
-            >
-              <img
-                src={slide.icon}
-                alt={`Icono de ${slide.sport}`}
-                width={40}
-                height={40}
-              />
-            </div>
-          );
-        })}
       </div>
     </div>
   );
